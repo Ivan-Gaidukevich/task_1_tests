@@ -1,18 +1,20 @@
 import ast
 import numpy as np
 import pytest
+import ast
+import inspect
+import task
 from task import trim_mean_dive
 
 
 def test_numpy_usage():
-    with open("task_1/task1_.py", "r", encoding="utf-8") as f:
-        tree = ast.parse(f.read())
-    numpy_used = False
-    for node in ast.walk(tree):
-        if isinstance(node, ast.Attribute):
-            if isinstance(node.value, ast.Name):
-                if node.value.id in ("np", "numpy"):
-                    numpy_used = True
+    tree = ast.parse(inspect.getsource(task))
+    numpy_used = any(
+        isinstance(node, ast.Attribute) and
+        isinstance(node.value, ast.Name) and
+        node.value.id in ("np", "numpy")
+        for node in ast.walk(tree)
+    )
     assert numpy_used, "В решении должен использоваться numpy"
 
 
