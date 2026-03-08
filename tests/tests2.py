@@ -4,15 +4,15 @@ from task import detect_anomalies
 
 
 def test_basic_anomaly():
-    data = np.array([1, 1, 1, 1, 100])
+    data = np.array([1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 100])
     result = detect_anomalies(data, 2)
-    assert np.array_equal(result, np.array([4]))
+    assert np.array_equal(result, np.array([12]))
 
 
 def test_multiple_anomalies():
-    data = np.array([2, 2, 2, 90, 2, 2, 90])
-    result = detect_anomalies(data, 2)
-    assert np.array_equal(result, np.array([3, 6]))
+    data = np.array([99, 1, 1, 1, 1, 1, 99, 1, 1, 1, 1, 1, 100])
+    result = detect_anomalies(data, 3)
+    assert np.array_equal(result, np.array([0, 6, 12]))
 
 
 def test_empty_array():
@@ -22,7 +22,7 @@ def test_empty_array():
 
 
 def test_sigma_zero():
-    data = np.array([5, 5, 5, 5, 5])
+    data = np.array([5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5])
     result = detect_anomalies(data, 3)
     assert result.size == 0
 
