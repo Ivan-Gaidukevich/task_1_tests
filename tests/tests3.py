@@ -1,6 +1,6 @@
 import pytest
 import numpy as np
-from task.py import moving_average  
+from task import moving_average  
 
 
 def test_basic_case():
