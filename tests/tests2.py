@@ -10,8 +10,8 @@ def test_basic_anomaly():
 
 
 def test_multiple_anomalies():
-    data = np.array([[99, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 
-                      1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 100]])
+    data = np.array([99, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 
+                      1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 100])
     result = detect_anomalies(data, 3)
     assert np.array_equal(result, np.array([0, 25]))
 
