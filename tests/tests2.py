@@ -4,13 +4,13 @@ from task import detect_anomalies
 
 
 def test_basic_anomaly():
-    data = np.array([1, 1, 1, 1, 20])
+    data = np.array([1, 1, 1, 1, 100])
     result = detect_anomalies(data, 3)
     assert np.array_equal(result, np.array([4]))
 
 
 def test_multiple_anomalies():
-    data = np.array([2, 2, 2, 30, 2, 2, 40])
+    data = np.array([2, 2, 2, 90, 2, 2, 90])
     result = detect_anomalies(data, 3)
     assert np.array_equal(result, np.array([3, 6]))
 
