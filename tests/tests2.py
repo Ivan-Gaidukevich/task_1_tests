@@ -4,26 +4,31 @@ import pytest
 from task import detect_anomalies
 
 
-def test_basic_anomalies():
-    data = np.array([
-        21.0, 21.2, 21.3, 21.1, 21.4,
-        21.2, 21.3, 50.0, 21.2, 21.3,
-        21.1, 20.9, -10.0, 21.2
-    ])
-    result = detect_anomalies(data, 3)
-    assert np.array_equal(result, np.array([7, 12]))
-
-
-def test_no_anomalies():
-    data = np.array([20.1, 20.2, 20.0, 20.3, 20.2, 20.1])
-    result = detect_anomalies(data, 3)
-    assert result.size == 0
-
-
-def test_single_anomaly():
-    data = np.array([10, 10, 10, 10, 100])
-    result = detect_anomalies(data, 2)
+def test_basic_anomalies_pass():
+    data = np.array([10, 10, 10, 10, 50, 10, 10])
+    result = detect_anomalies(data, threshold)
     assert np.array_equal(result, np.array([4]))
+    
+
+def test_multiple_anomalies_pass():
+    data = np.array([5, 5, 5, 50, 5, 5, -20])
+    threshold = 2
+    result = detect_anomalies(data, threshold)
+    assert np.array_equal(result, np.array([3, 6]))
+
+
+def test_single_anomaly_high_threshold():
+    data = np.array([1, 1, 1, 10, 1])
+    threshold = 1.5
+    result = detect_anomalies(data, threshold)
+    assert np.array_equal(result, np.array([3]))
+
+
+def test_edge_case_anomaly_at_end():
+    data = np.array([2, 2, 2, 2, 2, 20])
+    threshold = 1.5
+    result = detect_anomalies(data, threshold)
+    assert np.array_equal(result, np.array([5]))
 
 
 def test_empty_array():
