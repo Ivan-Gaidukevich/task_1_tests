@@ -1,6 +1,5 @@
 import numpy as np
 import pytest
-
 from task import detect_anomalies
 
 
